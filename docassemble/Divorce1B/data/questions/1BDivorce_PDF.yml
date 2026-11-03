@@ -65,6 +65,7 @@ metadata:
       organization: JusticeApp, Inc.
   revision_date: 2020-04-01
 ---
+id: "welcome to the justiceapp form builder for a 1b divorce to use this form builder you must agree that use of this form builder does not create an attorney client relationship justiceapp is not giving you any legal advice if you want to speak to a lawyer you can click on legal help in justiceapp for help finding one this form builder can be used if you believe your marriage has suffered an irretrievable breakdown this means your marriage is broken and you cannot fix it"
 question: |
   Welcome to the JusticeApp form builder for a 1B Divorce! To use this form builder, you must agree that:
   
@@ -97,6 +98,7 @@ help: |
 continue button field: intro_screen
 continue button label: Agree
 ---
+id: "what is your name and date of birth"
 question: |
   What is your name and date of birth?
 fields:
@@ -119,10 +121,11 @@ right: |
   
   Under your information on your marriage certificate, look at the box or line for **"Surname After Marriage"**. This is your current last name.
 ---
+id: "have you ever changed your last name example when you got married"
 question: |
   Have you ever changed your last name (example, when you got married)?
 fields:   
-  - no label: user.birth_surname_different
+  - "Have you ever changed your last name (example, when you got married)?": user.birth_surname_different
     datatype: yesnoradio
   - Insert Last Name at Birth: user.birth_surname
     show if:
@@ -131,6 +134,7 @@ fields:
       is:
         True
 ---
+id: "what is your sex"
 question: |
   What is your sex?
 fields: 
@@ -141,6 +145,7 @@ fields:
   - Neither of the above/Prefer Not to Answer: user.sex_no_answer
     datatype: yesno
 ---
+id: "what are the last 4 digits of your social security number"
 question: |
   What are the last 4 digits of your Social Security Number?
 fields: 
@@ -150,6 +155,7 @@ fields:
     maxlength: 4
     minlength: 4
 ---
+id: "what is your address"
 question: |
   What is your address?
 fields:
@@ -164,12 +170,14 @@ fields:
     default: "MA"
   - zip: user.address.zip
 ---
+id: "what is your telephone number"
 question: What is your telephone number?
 fields:
   - no label: user.phone_number
     maxlength: 10
     minlength: 10
 ---
+id: "what is your spouses name and date of birth"
 question: "What is your spouse's name and date of birth?"
 fields:
   - First Name: defendant.name.first
@@ -191,6 +199,7 @@ right: |
   
   Under your spouse's information on your marriage certificate, look at the box or line for **"Surname After Marriage"**. This is your spouse's current name.
 ---
+id: "what is your spouses sex"
 question: |
   What is your spouse's sex?
 fields: 
@@ -201,6 +210,7 @@ fields:
   - Neither of the Above/Prefer Not to Answer: defendant.sex_no_answer
     datatype: yesno
 ---
+id: "what are the last 4 digits of your spouses social security number"
 question: |
   What are the last 4 digits of your spouse's Social Security Number?
 fields: 
@@ -210,10 +220,14 @@ fields:
     maxlength: 4
     minlength: 4
 ---
+id: "do you and your spouse still live together"
 question: |
   Do you and your spouse still live together?
-yesno: still_live_together
+fields:
+  - no label: still_live_together
+    datatype: yesnoradio
 ---
+id: "when did you and your spouse last live together"
 question: |  
   When did you and your spouse last live together?
 fields: 
@@ -227,6 +241,7 @@ code: |
   else:
     last_lived_datePDF = 'Presently living together.'
 ---
+id: "where did you and your spouse last live together"
 question: |
   Where did you and your spouse last live together?
 fields: 
@@ -249,10 +264,14 @@ code: |
   else:
     last_lived_statePDF = ''
 ---
+id: "do you know where your spouse lives"
 question: |
   Do you know where your spouse lives?
-yesno: knows_spouse_lives
+fields:
+  - no label: knows_spouse_lives
+    datatype: yesnoradio
 ---
+id: "what is your spouses current or last known address"
 question: "What is your spouse's current or last known address?"
 fields:
   - address: defendant.address.address
@@ -272,11 +291,13 @@ code: |
   else:
     user.address.address
 ---
+id: "when were you and your spouse married"
 question: When were you and your spouse married?
 fields: 
   - Date of marriage: marriage_date
     datatype: date
 ---
+id: "where were you and your spouse married"
 question: Where were you and your spouse married?
 fields:
   - City: marriage_city
@@ -289,11 +310,13 @@ Right: |
   ### Note:
   If you were married in a country other than the United States of America, please       list the the country name under "State".
 ---
+id: "when did your marriage become permanently broken"
 question: When did your marriage become permanently broken?
 fields: 
   - no label: breakdown_date
     datatype: date
 ---
+id: "what number marriage is this for you what number marriage is this for your spouse"
 question: |
   What number marriage is this for you? What number marriage is this for your spouse?
 fields: 
@@ -315,10 +338,11 @@ code: |
 code: |
   dependent_children = children.filter('dependent_children', dependent=True)
 ---
+id: "do you have any children"
 question: |
   Do you have any children?
 fields:
-  - no label: children.there_are_any
+  - "Do you have any children?": children.there_are_any
     datatype: yesnoradio
   - Number of Children in Your Custody: user.children_custody
     datatype: integer
@@ -335,6 +359,7 @@ fields:
       is:
         True
 ---
+id: "what is the name and birthdate of your ordinal i child"
 question: |
   What is the name and birthdate of your ${ordinal(i)} child?
 fields:
@@ -359,9 +384,12 @@ right: |
   
   For more information, visit [Mass.gov](https://www.mass.gov/info-details/massachusetts-law-about-child-support-over-age-18).
 ---
+id: "do you have any other children"
 question: |
   Do you have any other children?
-yesno: children.there_is_another
+fields:
+  - no label: children.there_is_another
+    datatype: yesnoradio
 ---
 objects:
   - previous_action: DAList.using(object_type = Thing, complete_attribute='complete')
@@ -373,9 +401,12 @@ code: |
   previous_action[i].status
   previous_action[i].complete = True
 ---
+id: "have you or your spouse ever filed another case against the other"
 question: |
     Have you or your spouse ever filed another case against the other?
-yesno: previous_action.there_are_any
+fields:
+  - no label: previous_action.there_are_any
+    datatype: yesnoradio
 right: |
   ### Note
     
@@ -389,6 +420,7 @@ right: |
   * Desertion
   * Affirmation of Marriage
 ---
+id: "please provide the following information for the ordinal i case"
 question: |
   Please provide the following information for the ${ ordinal(i) } case?
 fields:
@@ -424,10 +456,14 @@ fields:
       - Closed
       - Dismissed
 ---
+id: "have you or your spouse ever filed another one of those cases against the other"
 question: |
   Have you or your spouse ever filed another one of those cases against the other?
-yesno: previous_action.there_is_another
+fields:
+  - no label: previous_action.there_is_another
+    datatype: yesnoradio
 ---
+id: "do you agree with the following statement i want the court to grant me a divorce because my marriage is irretrievably broken"
 question: |
   Do you agree with the following statement, 
   > I want the court to grant me a divorce because my marriage is irretrievably broken.
@@ -440,10 +476,11 @@ right: |
     
   If you want to continue with this type of divorce, click 'Yes'. For this type of case, you **must** ask the court to grant the divorce because of the irretrievable breakdown. 
 ---
+id: "would you like the court to grant custody of you and your spouses minor or dependent children"
 question: 
   "Would you like the court to grant custody of you and your spouse's minor or dependent children?"
 fields:
-  - no label: grant_custody
+  - "Would you like the court to grant custody of you and your spouse's minor or dependent children?": grant_custody
     datatype: yesnoradio
   - Grant custody to me: plaintiff_custody
     datatype: yesnoradio
@@ -471,14 +508,18 @@ help:
     
     **It is important** that you understand the differences between the two, and what you can ask the court to order. To learn more, visit [MassLegalHelp](https://www.masslegalhelp.org/domestic-violence/wdwgfh/chapter7-custody).
 ---
+id: "would you like the court to order that your spouse cannot restrain your personal liberty"
 question: |
   Would you like the court to order that your spouse cannot restrain your personal liberty?
-yesno: plaintiff_liberty
+fields:
+  - no label: plaintiff_liberty
+    datatype: yesnoradio
 ---
+id: "would you like the court to grant alimony and or child support"
 question: |
   Would you like the court to grant alimony and/or child support?
 fields:
-  - no label: grant_support
+  - "Would you like the court to grant alimony and/or child support?": grant_support
     datatype: yesnoradio
   - Order alimony: plaintiff_support
     datatype: yesnoradio
@@ -499,10 +540,11 @@ right: |
   
   **Child support** is money one spouse pays to the other spouse for the care of their children. To learn more, visit [MassLegalHelp](https://www.masslegalhelp.org/children-and-families/child-support).
 ---
+id: "do you want to resume your former last name"
 question: |
   Do you want to resume your former last name?
 fields:
-  - no label: resume_former_name
+  - "Do you want to resume your former last name?": resume_former_name
     datatype: yesnoradio
   - Insert Former Last Name: plaintiff_former_name
     show if:
@@ -511,10 +553,11 @@ fields:
       is:
         True
 ---
+id: "do you want the court to offer any other form of relief"
 question: |
   Do you want the court to offer any other form of relief?
 fields:
-  - no label: other_relief
+  - "Do you want the court to offer any other form of relief?": other_relief
     datatype: yesnoradio
   - What else do you want the court to order?: type_relief_sought
     show if:
@@ -523,10 +566,11 @@ fields:
       is:
         True
 ---
+id: "do you want the court to convey any real estate"
 question: |
   Do you want the court to convey any real estate?
 fields:
-  - no label: convey_real_estate
+  - "Do you want the court to convey any real estate?": convey_real_estate
     datatype: yesnoradio
   - Where is the real estate located?: real_estate_location
     address autocomplete: True
@@ -560,6 +604,7 @@ fields:
       is:
         True
 ---
+id: "would you like to have todays date on your complaint for divorce or should we leave the date line blank so you can fill it in later"
 question: |
   Would you like to have today's date on your complaint for divorce, or should we leave the date line blank so you can fill it in later?
 fields: 
@@ -570,6 +615,7 @@ fields:
       - Leave Date Blank: no_date
     none of the above: False
 ---
+id: "what county are you filing in"
 question: |
   What county are you filing in?
 fields: 
@@ -591,16 +637,23 @@ fields:
       - Worcester
 ---
 mandatory: True
+id: "are you actively serving in the military"
 question: |
   Are you actively serving in the military?
-yesno: user.military_service
+fields:
+  - no label: user.military_service
+    datatype: yesnoradio
 ---
 mandatory: True
+id: "is your spouse actively serving in the military"
 question: |
   Is your spouse actively serving in the military?
-yesnomaybe: defendant.military_service
+fields:
+  - no label: defendant.military_service
+    datatype: yesnomaybe
 ---
 mandatory: True
+id: "below please explain your selections for example you can write whether you know that neither you nor your spouse are in the military if you or your spouse are in the military you can give details about you or your spouses service"
 question: |
   Below, please explain your selections. For example, you can:
   
@@ -612,6 +665,7 @@ fields:
 ---
 mandatory: True
 progress: 100
+id: "here are your documents"
 question: |
   Here are your documents!
 subquestion: |
@@ -621,6 +675,7 @@ subquestion: |
 attachment code: |
   [Divorce_PDF, Military_Affidavit, R_408]
 ---
+id: "here is your pdf form"
 question: | 
   Here is your PDF form
 attachment:
@@ -953,6 +1008,7 @@ attachment:
     - Spouse Zip: |
         ${ defendant.address.zip }
 ---
+id: "here is your document"
 question: |
   Here is your document.
 attachment:
